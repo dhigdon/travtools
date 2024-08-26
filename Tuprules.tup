@@ -1,0 +1,12 @@
+# GCC flags
+WARNINGS += -Wall
+CFLAGS += $(WARNINGS) -O -std=c++17
+
+# Compile CPP files into the obj/ directory
+!cc = |> gcc $(CFLAGS) -c %f -o %o |> obj/%B.o
+
+# Build archives
+!ar = |> ar crs %o %f |>
+
+# Link a c++ executable
+!lkcpp = |> gcc %f -o %o -lstdc++ |> %B.o

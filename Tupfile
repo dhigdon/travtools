@@ -1,0 +1,12 @@
+include_rules
+
+# General CPP compiling rule
+# Note, this leaves .o files in obj/*.o
+: foreach *.cpp |> !cc |>
+
+# mkuwp
+: obj/mkuwp.o obj/dice.o obj/ehex.o |> !lkcpp |> mkuwp
+
+# pruwp
+: obj/pruwp.o obj/ehex.o |> !lkcpp |> pruwp
+

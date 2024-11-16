@@ -14,43 +14,42 @@
 #include <string_view>
 #include <assert.h>
 
+#include "ehex.h"
+
 using namespace std;
 
 //----------------------------------------------------------------------------- 
 
-
-
-//----------------------------------------------------------------------------- 
-
-void pruwp( string const uwp )
+void pruwp( ostream & os, string_view uwp )
 {
    assert( uwp.length() == 9 );
 
-   cout << "Starport:      " << uwp[0] << endl;
-   cout << "Size:          " << uwp[1] << endl;
-   cout << "Atmosphere:    " << uwp[2] << endl;
-   cout << "Hydrosphere:   " << uwp[3] << endl;
-   cout << "Population:    " << uwp[4] << endl;
-   cout << "Government:    " << uwp[5] << endl;
-   cout << "Law Level:     " << uwp[6] << endl;
-   cout << "Tech Level:    " << uwp[8] << endl;
+   os << "UWP:           " << uwp << endl;
+   os << "Starport:      " << uwp[0] << endl;
+   os << "Size:          " << ehex::decode( uwp[1] ) << endl;
+   os << "Atmosphere:    " << ehex::decode( uwp[2] ) << endl;
+   os << "Hydrosphere:   " << ehex::decode( uwp[3] ) << endl;
+   os << "Population:    " << ehex::decode( uwp[4] ) << endl;
+   os << "Government:    " << ehex::decode( uwp[5] ) << endl;
+   os << "Law Level:     " << ehex::decode( uwp[6] ) << endl;
+   os << "Tech Level:    " << ehex::decode( uwp[8] ) << endl;
 }
 
 //----------------------------------------------------------------------------- 
 
-void prworld( string const & uwp )
+void prworld( string_view uwp )
 {
    // Detect the simple form X000000-0
    if( uwp.length() == 9 )
    {
-      pruwp( uwp );
+      pruwp( cout, uwp );
    }
    else
    {
       // Parse the fields
       // TODO: actually determine which field has the UWP in it
       int i = uwp.find('\t');
-      pruwp( uwp.substr( 0, i) );
+      pruwp( cout, uwp.substr( 0, i) );
    }
 }
 
@@ -64,6 +63,7 @@ int main( int argc, char **argv )
       while( getline( cin, line ) )
       {
          prworld( line );
+         cout << endl;
       }
    }
    else

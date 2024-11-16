@@ -72,13 +72,8 @@ int tl_mods( UWP const & uwp )
 
 //----------------------------------------------------------------------------- 
 
-//----------------------------------------------------------------------------- 
-
-int main( int argc, char **argv)
+UWP make_uwp( Roller & gen )
 {
-   Roller gen;
-
-   // Generate Starport
    UWP uwp;
    uwp.port = randomize_port( gen );
 
@@ -92,18 +87,38 @@ int main( int argc, char **argv)
 
    uwp.tech = gen.roll() + tl_mods( uwp );
 
-   // Generate the UWP
-   // TODO: T5 standard
-   cout << uwp.port
-      << ehex::encode( uwp.size )
-      << ehex::encode( uwp.atmo )
-      << ehex::encode( uwp.hydro )
-      << ehex::encode( uwp.pop )
-      << ehex::encode( uwp.gov )
-      << ehex::encode( uwp.law )
-      << '-'
-      << ehex::encode( uwp.tech )
-      << endl;
+   return uwp;
+}
+
+//----------------------------------------------------------------------------- 
+
+ostream & operator<<( ostream & os, UWP const & uwp )
+{
+   return os << uwp.port
+             << ehex::encode( uwp.size )
+             << ehex::encode( uwp.atmo )
+             << ehex::encode( uwp.hydro )
+             << ehex::encode( uwp.pop )
+             << ehex::encode( uwp.gov )
+             << ehex::encode( uwp.law )
+             << '-'
+             << ehex::encode( uwp.tech );
+}
+
+//----------------------------------------------------------------------------- 
+
+int main( int argc, char **argv)
+{
+   Roller gen;
+
+   int count = 1;
+   if (argc == 2) count = ::strtoul(argv[1], nullptr, 10);
+
+   for  ( int i = 0; i < count; ++i )
+   {
+      UWP const uwp = make_uwp( gen );
+      cout << uwp << endl;
+   }
 
    return 0;
 }

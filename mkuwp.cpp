@@ -95,14 +95,14 @@ UWP make_uwp( Roller & gen )
 ostream & operator<<( ostream & os, UWP const & uwp )
 {
    return os << uwp.port
-             << ehex::encode( uwp.size )
-             << ehex::encode( uwp.atmo )
-             << ehex::encode( uwp.hydro )
-             << ehex::encode( uwp.pop )
-             << ehex::encode( uwp.gov )
-             << ehex::encode( uwp.law )
-             << '-'
-             << ehex::encode( uwp.tech );
+      << ehex::encode( uwp.size )
+      << ehex::encode( uwp.atmo )
+      << ehex::encode( uwp.hydro )
+      << ehex::encode( uwp.pop )
+      << ehex::encode( uwp.gov )
+      << ehex::encode( uwp.law )
+      << '-'
+      << ehex::encode( uwp.tech );
 }
 
 //----------------------------------------------------------------------------- 
@@ -114,7 +114,7 @@ int main( int argc, char **argv)
    int count = 1;
    if (argc == 2) count = ::strtoul(argv[1], nullptr, 10);
 
-   for  ( int i = 0; i < count; ++i )
+   for ( int i = 0; i < count; ++i )
    {
       UWP const uwp = make_uwp( gen );
       cout << uwp << endl;

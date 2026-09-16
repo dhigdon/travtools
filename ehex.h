@@ -4,7 +4,7 @@
 
 namespace ehex
 {
-   // Converto to/from "E-Hex", which is an extended
+   // Conversion to/from "E-Hex", which is an extended
    // hexadecimal-like notation.
    // Values from 0-15 are encoded as with hex, but
    // larger values use subsequent letters of the alphabet.
